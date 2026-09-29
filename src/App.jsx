@@ -1,13 +1,9 @@
-import { useState } from "react";
 import { Box, Typography } from "@mui/material";
 import SearchBar from "./components/SearchBar";
+import useWeather from "./hooks/useWeather";
 
 const App = () => {
-  const [city, setCity] = useState("");
-
-  const handleSearch = (searchedCity) => {
-    setCity(searchedCity);
-  };
+  const { weather, loading, error, searchWeather } = useWeather();
 
   return (
     <Box sx={{ p: 4 }}>
@@ -15,11 +11,23 @@ const App = () => {
         Weather Forecast
       </Typography>
 
-      <SearchBar onSearch={handleSearch} />
+      <SearchBar onSearch={searchWeather} />
 
-      {city && (
+      {loading && (
+        <Typography sx={{ mt: 4 }}>
+          Loading weather...
+        </Typography>
+      )}
+
+      {error && (
+        <Typography color="error" sx={{ mt: 4 }}>
+          {error}
+        </Typography>
+      )}
+
+      {weather && (
         <Typography variant="h5" sx={{ mt: 4 }}>
-          Searching for: {city}
+          Weather found for: {weather.name}
         </Typography>
       )}
     </Box>
