@@ -1,5 +1,7 @@
 import { Box, Typography } from "@mui/material";
 import SearchBar from "./components/SearchBar";
+import CurrentWeather from "./components/CurrentWeather";
+import WeatherDetails from "./components/WeatherDetails";
 import useWeather from "./hooks/useWeather";
 
 const App = () => {
@@ -26,9 +28,10 @@ const App = () => {
       )}
 
       {weather && (
-        <Typography variant="h5" sx={{ mt: 4 }}>
-          Weather found for: {weather.name}
-        </Typography>
+        <>
+          <CurrentWeather weather={weather} />
+          <WeatherDetails weather={weather} />
+        </>
       )}
     </Box>
   );

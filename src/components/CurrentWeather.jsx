@@ -9,15 +9,15 @@ const CurrentWeather = ({ weather }) => {
     <Card sx={{ mt: 4 }}>
       <CardContent>
         <Typography variant="h4">
-          {weather.city}
+          {weather.name}
         </Typography>
 
         <Typography variant="h2" sx={{ mt: 2 }}>
-          {weather.temperature}°C
+          {Math.round(weather.main.temp)}°C
         </Typography>
 
         <Typography variant="body1" sx={{ mt: 2 }}>
-          {weather.description}
+          {weather.weather[0].description}
         </Typography>
       </CardContent>
     </Card>
