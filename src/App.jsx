@@ -2,6 +2,8 @@ import { Box, Typography } from "@mui/material";
 import SearchBar from "./components/SearchBar";
 import CurrentWeather from "./components/CurrentWeather";
 import WeatherDetails from "./components/WeatherDetails";
+import Loading from "./components/Loading";
+import ErrorMessage from "./components/ErrorMessage";
 import useWeather from "./hooks/useWeather";
 
 const App = () => {
@@ -15,17 +17,9 @@ const App = () => {
 
       <SearchBar onSearch={searchWeather} />
 
-      {loading && (
-        <Typography sx={{ mt: 4 }}>
-          Loading weather...
-        </Typography>
-      )}
+      {loading && <Loading />}
 
-      {error && (
-        <Typography color="error" sx={{ mt: 4 }}>
-          {error}
-        </Typography>
-      )}
+      {error && <ErrorMessage message={error} />}
 
       {weather && (
         <>
