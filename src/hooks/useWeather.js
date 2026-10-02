@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
-import { getWeather } from "../api/weather";
+import { getWeather, getForecast } from "../api/weather";
 
 const useWeather = () => {
   const [city, setCity] = useState("");
   const [weather, setWeather] = useState(null);
+  const [forecast, setForecast] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
@@ -22,13 +23,26 @@ const useWeather = () => {
         if (data.cod !== 200) {
           setError(data.message || "Unable to find weather for this city.");
           setWeather(null);
+          setForecast(null);
+          return;
+        }
+
+        const forecastData = await getForecast(city);
+
+        if (forecastData.cod !== "200") {
+          setError("Unable to fetch the weather forecast.");
+          setWeather(null);
+          setForecast(null);
           return;
         }
 
         setWeather(data);
+        setForecast(forecastData);
+
       } catch (err) {
         setError("Unable to fetch weather data.");
         setWeather(null);
+        setForecast(null);
       } finally {
         setLoading(false);
       }
@@ -43,6 +57,7 @@ const useWeather = () => {
 
   return {
     weather,
+    forecast,
     loading,
     error,
     searchWeather,

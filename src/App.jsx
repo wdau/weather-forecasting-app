@@ -4,10 +4,11 @@ import CurrentWeather from "./components/CurrentWeather";
 import WeatherDetails from "./components/WeatherDetails";
 import Loading from "./components/Loading";
 import ErrorMessage from "./components/ErrorMessage";
+import Forecast from "./components/Forecast";
 import useWeather from "./hooks/useWeather";
 
 const App = () => {
-  const { weather, loading, error, searchWeather } = useWeather();
+  const { weather, forecast, loading, error, searchWeather } = useWeather();
 
   return (
     <Box sx={{ p: 4 }}>
@@ -27,6 +28,8 @@ const App = () => {
           <WeatherDetails weather={weather} />
         </>
       )}
+
+      {forecast && <Forecast forecast={forecast} />}
     </Box>
   );
 };
