@@ -4,7 +4,7 @@ const Forecast = ({ forecast }) => {
     return (
         <Box sx={{ mt: 4 }}>
             <Typography variant="h5" sx={{ mb: 2 }}>
-                Hourly Forecast
+                3-Hour Forecast
             </Typography>
 
             <Box
@@ -24,12 +24,20 @@ const Forecast = ({ forecast }) => {
                         }}
                     >
                         <Typography variant="body2">
-                            {forecast.list.indexOf(item) === 0
-                                ? "Now"
-                                : item.dt_txt.slice(11, 16)}
+                            {new Date(
+                                (item.dt + forecast.city.timezone) * 1000
+                            ).toLocaleTimeString("en-US", {
+                                hour: "numeric",
+                                timeZone: "UTC",
+                            })}
                         </Typography>
 
-                        <Typography variant="h6" sx={{ mt: 1 }}>
+                        <img
+                            src={`https://openweathermap.org/img/wn/${item.weather[0].icon}@2x.png`}
+                            alt={item.weather[0].description}
+                        />
+
+                        <Typography variant="h6">
                             {Math.round(item.main.temp)}°C
                         </Typography>
                     </Box>
