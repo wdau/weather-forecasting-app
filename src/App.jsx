@@ -1,5 +1,10 @@
 import { useState } from "react";
-import { Box, Button, Typography } from "@mui/material";
+import {
+  Box,
+  ToggleButton,
+  ToggleButtonGroup,
+  Typography,
+} from "@mui/material";
 import SearchBar from "./components/SearchBar";
 import CurrentWeather from "./components/CurrentWeather";
 import WeatherDetails from "./components/WeatherDetails";
@@ -22,20 +27,24 @@ const App = () => {
 
       <SearchBar onSearch={searchWeather} />
 
-      <Box sx={{ display: "flex", gap: 1, mt: 2 }}>
-        <Button
-          variant={unit === "C" ? "contained" : "outlined"}
-          onClick={() => setUnit("C")}
+      <Box sx={{ mt: 2 }}>
+        <ToggleButtonGroup
+          value={unit}
+          exclusive
+          onChange={(event, newUnit) => {
+            if (newUnit !== null) {
+              setUnit(newUnit);
+            }
+          }}
         >
-          °C
-        </Button>
+          <ToggleButton value="C">
+            °C
+          </ToggleButton>
 
-        <Button
-          variant={unit === "F" ? "contained" : "outlined"}
-          onClick={() => setUnit("F")}
-        >
-          °F
-        </Button>
+          <ToggleButton value="F">
+            °F
+          </ToggleButton>
+        </ToggleButtonGroup>
       </Box>
 
       {loading && <Loading />}
