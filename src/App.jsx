@@ -5,6 +5,7 @@ import WeatherDetails from "./components/WeatherDetails";
 import Loading from "./components/Loading";
 import ErrorMessage from "./components/ErrorMessage";
 import ThreeHourForecast from "./components/ThreeHourForecast";
+import FiveDayForecast from "./components/FiveDayForecast";
 import useWeather from "./hooks/useWeather";
 
 const App = () => {
@@ -30,6 +31,8 @@ const App = () => {
       )}
 
       {forecast && <ThreeHourForecast forecast={forecast} />}
+
+      {forecast && <FiveDayForecast forecast={forecast} />}
     </Box>
   );
 };
