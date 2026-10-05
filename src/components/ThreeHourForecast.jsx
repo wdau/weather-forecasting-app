@@ -1,6 +1,7 @@
 import { Box, Typography } from "@mui/material";
+import { convertTemperature } from "../utils/temperature";
 
-const Forecast = ({ forecast }) => {
+const Forecast = ({ forecast, unit }) => {
     return (
         <Box sx={{ mt: 4 }}>
             <Typography variant="h5" sx={{ mb: 2 }}>
@@ -38,7 +39,7 @@ const Forecast = ({ forecast }) => {
                         />
 
                         <Typography variant="h6">
-                            {Math.round(item.main.temp)}°C
+                            {Math.round(convertTemperature(item.main.temp, unit))}°{unit}
                         </Typography>
                     </Box>
                 ))}

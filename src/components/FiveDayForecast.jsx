@@ -1,6 +1,7 @@
 import { Box, Typography } from "@mui/material";
+import { convertTemperature } from "../utils/temperature";
 
-const FiveDayForecast = ({ forecast }) => {
+const FiveDayForecast = ({ forecast, unit }) => {
   // Group forecast entries by local date
   const dailyForecast = {};
 
@@ -80,7 +81,7 @@ const FiveDayForecast = ({ forecast }) => {
             />
 
             <Typography>
-              Low {Math.round(day.minTemp)}°C / High {Math.round(day.maxTemp)}°C
+              Low {Math.round(convertTemperature(day.minTemp, unit))}°{unit} / High {Math.round(convertTemperature(day.maxTemp, unit))}°{unit}
             </Typography>
           </Box>
         );

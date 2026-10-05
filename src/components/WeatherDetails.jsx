@@ -4,8 +4,9 @@ import {
   Grid,
   Typography,
 } from "@mui/material";
+import { convertTemperature  } from "../utils/temperature";
 
-const WeatherDetails = ({ weather }) => {
+const WeatherDetails = ({ weather, unit }) => {
   return (
     <Card sx={{ mt: 2 }}>
       <CardContent>
@@ -19,7 +20,7 @@ const WeatherDetails = ({ weather }) => {
               Feels Like
             </Typography>
             <Typography variant="h6">
-              {Math.round(weather.main.feels_like)}°C
+              {Math.round(convertTemperature(weather.main.feels_like, unit))}°{unit}
             </Typography>
           </Grid>
 

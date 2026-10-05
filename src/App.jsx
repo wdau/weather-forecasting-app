@@ -1,4 +1,5 @@
-import { Box, Typography } from "@mui/material";
+import { useState } from "react";
+import { Box, Button, Typography } from "@mui/material";
 import SearchBar from "./components/SearchBar";
 import CurrentWeather from "./components/CurrentWeather";
 import WeatherDetails from "./components/WeatherDetails";
@@ -9,6 +10,8 @@ import FiveDayForecast from "./components/FiveDayForecast";
 import useWeather from "./hooks/useWeather";
 
 const App = () => {
+  const [unit, setUnit] = useState("C");
+
   const { weather, forecast, loading, error, searchWeather } = useWeather();
 
   return (
@@ -19,20 +22,36 @@ const App = () => {
 
       <SearchBar onSearch={searchWeather} />
 
+      <Box sx={{ display: "flex", gap: 1, mt: 2 }}>
+        <Button
+          variant={unit === "C" ? "contained" : "outlined"}
+          onClick={() => setUnit("C")}
+        >
+          °C
+        </Button>
+
+        <Button
+          variant={unit === "F" ? "contained" : "outlined"}
+          onClick={() => setUnit("F")}
+        >
+          °F
+        </Button>
+      </Box>
+
       {loading && <Loading />}
 
       {error && <ErrorMessage message={error} />}
 
       {weather && (
         <>
-          <CurrentWeather weather={weather} />
-          <WeatherDetails weather={weather} />
+          <CurrentWeather weather={weather} unit={unit} />
+          <WeatherDetails weather={weather} unit={unit} />
         </>
       )}
 
-      {forecast && <ThreeHourForecast forecast={forecast} />}
+      {forecast && <ThreeHourForecast forecast={forecast} unit={unit} />}
 
-      {forecast && <FiveDayForecast forecast={forecast} />}
+      {forecast && <FiveDayForecast forecast={forecast} unit={unit} />}
     </Box>
   );
 };

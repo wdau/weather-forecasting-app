@@ -3,8 +3,9 @@ import {
   CardContent,
   Typography,
 } from "@mui/material";
+import { convertTemperature } from "../utils/temperature";
 
-const CurrentWeather = ({ weather }) => {
+const CurrentWeather = ({ weather, unit }) => {
   return (
     <Card sx={{ mt: 4 }}>
       <CardContent>
@@ -13,7 +14,7 @@ const CurrentWeather = ({ weather }) => {
         </Typography>
 
         <Typography variant="h2" sx={{ mt: 2 }}>
-          {Math.round(weather.main.temp)}°C
+          {Math.round(convertTemperature(weather.main.temp, unit))}°{unit}
         </Typography>
 
         <Typography variant="body1" sx={{ mt: 2 }}>
