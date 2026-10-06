@@ -22,6 +22,11 @@ const Forecast = ({ forecast, unit }) => {
                         sx={{
                             minWidth: 80,
                             textAlign: "center",
+                            p: 1,
+                            border: "1px solid",
+                            borderColor: "divider",
+                            borderRadius: 2,
+                            backgroundColor: "background.paper",
                         }}
                     >
                         <Typography variant="body2">
@@ -36,6 +41,8 @@ const Forecast = ({ forecast, unit }) => {
                         <img
                             src={`https://openweathermap.org/img/wn/${item.weather[0].icon}@2x.png`}
                             alt={item.weather[0].description}
+                            width="50"
+                            height="50"
                         />
 
                         <Typography variant="h6">

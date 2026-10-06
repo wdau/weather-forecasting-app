@@ -20,7 +20,13 @@ const App = () => {
   const { weather, forecast, loading, error, searchWeather } = useWeather();
 
   return (
-    <Box sx={{ p: 4 }}>
+    <Box sx={{
+      maxWidth: 1000,
+      mx: "auto",
+      p: 4,
+      minHeight: "100vh",
+      backgroundColor: "#f5f7fa",
+    }}>
       <Typography variant="h3" sx={{ mb: 3 }}>
         Weather Forecast
       </Typography>
