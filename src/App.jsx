@@ -11,7 +11,6 @@ import { ThemeProvider } from "@mui/material/styles";
 import { lightTheme, darkTheme } from "./theme";
 import SearchBar from "./components/SearchBar";
 import CurrentWeather from "./components/CurrentWeather";
-import WeatherDetails from "./components/WeatherDetails";
 import Loading from "./components/Loading";
 import ErrorMessage from "./components/ErrorMessage";
 import ThreeHourForecast from "./components/ThreeHourForecast";
@@ -93,7 +92,6 @@ const App = () => {
         {weather && (
           <>
             <CurrentWeather weather={weather} unit={unit} />
-            <WeatherDetails weather={weather} unit={unit} />
           </>
         )}
 
