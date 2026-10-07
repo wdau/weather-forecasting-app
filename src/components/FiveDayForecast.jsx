@@ -1,4 +1,4 @@
-import { Box, Typography } from "@mui/material";
+import { Box, Card, Typography } from "@mui/material";
 import { convertTemperature } from "../utils/temperature";
 
 const FiveDayForecast = ({ forecast, unit }) => {
@@ -36,7 +36,7 @@ const FiveDayForecast = ({ forecast, unit }) => {
   );
 
   return (
-    <Box sx={{ mt: 4 }}>
+    <Card sx={{ mt: 4, p: 2 }}>
       <Typography variant="h5" sx={{ mb: 2 }}>
         5-Day Forecast
       </Typography>
@@ -86,7 +86,7 @@ const FiveDayForecast = ({ forecast, unit }) => {
           </Box>
         );
       })}
-    </Box>
+    </Card>
   );
 };
 
