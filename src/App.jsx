@@ -91,13 +91,13 @@ const App = () => {
 
         {weather && (
           <>
-            <CurrentWeather weather={weather} unit={unit} />
+            <CurrentWeather key={weather.id} weather={weather} unit={unit} />
           </>
         )}
 
-        {forecast && <ThreeHourForecast forecast={forecast} unit={unit} />}
+        {forecast && <ThreeHourForecast key={`three-hour-${forecast.city.id}`} forecast={forecast} unit={unit} />}
 
-        {forecast && <FiveDayForecast forecast={forecast} unit={unit} />}
+        {forecast && <FiveDayForecast key={`five-day-${forecast.city.id}`} forecast={forecast} unit={unit} />}
       </Box>
     </ThemeProvider>
   );
