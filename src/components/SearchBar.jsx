@@ -1,15 +1,45 @@
-import { useState } from "react";
-import { Box, Button, TextField } from "@mui/material";
+import SearchIcon from "@mui/icons-material/Search";
+import { useEffect, useState } from "react";
+import {
+  Autocomplete,
+  Box,
+  Button,
+  InputAdornment,
+  TextField,
+  Typography,
+} from "@mui/material";
+import { getCitySuggestions } from "../api/weather";
 
 const SearchBar = ({ onSearch }) => {
   const [city, setCity] = useState("");
+  const [suggestions, setSuggestions] = useState([]);
 
-  // Handle input change
-  const handleChange = (e) => {
-    setCity(e.target.value);
-  };
+  useEffect(() => {
+    if (city.trim().length < 2) {
+      setSuggestions([]);
+      return;
+    }
 
-  // Handle form submission
+    const fetchSuggestions = async () => {
+      const data = await getCitySuggestions(city);
+
+      const uniqueSuggestions = data.filter(
+        (item, index, array) =>
+          index ===
+          array.findIndex(
+            (other) =>
+              other.name === item.name &&
+              other.state === item.state &&
+              other.country === item.country
+          )
+      );
+
+      setSuggestions(uniqueSuggestions);
+    };
+
+    fetchSuggestions();
+  }, [city]);
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -30,12 +60,64 @@ const SearchBar = ({ onSearch }) => {
         width: "100%",
       }}
     >
-      <TextField
-        label="Enter a city"
-        variant="outlined"
-        value={city}
-        onChange={handleChange}
+      <Autocomplete
+        renderOption={(props, option) => (
+          <Box component="li" {...props}>
+            <img
+              src={`https://flagcdn.com/24x18/${option.country.toLowerCase()}.png`}
+              alt={option.country}
+              width="24"
+              height="18"
+              style={{ marginRight: "8px" }}
+            />
+
+            <Typography>
+              {option.name}
+              {option.state ? `, ${option.state}` : ""}
+              {`, ${option.country}`}
+            </Typography>
+          </Box>
+        )}
+        freeSolo
+        options={suggestions}
+        getOptionLabel={(option) =>
+          typeof option === "string"
+            ? option
+            : `${option.name}${option.state ? `, ${option.state}` : ""
+            }, ${option.country}`
+        }
+        onInputChange={(event, newValue) => {
+          setCity(newValue);
+        }}
+        onChange={(event, newValue) => {
+          if (newValue && typeof newValue !== "string") {
+            setCity(newValue.name);
+            onSearch(newValue.name);
+          }
+        }}
         fullWidth
+        renderInput={(params) => (
+          <TextField
+            {...params}
+            label="Search City"
+            variant="outlined"
+            slotProps={{
+              ...params.slotProps,
+              input: {
+                ...params.slotProps.input,
+                startAdornment: (
+                  <>
+                    <InputAdornment position="start">
+                      <SearchIcon />
+                    </InputAdornment>
+
+                    {params.slotProps.input.startAdornment}
+                  </>
+                ),
+              },
+            }}
+          />
+        )}
       />
 
       <Button
