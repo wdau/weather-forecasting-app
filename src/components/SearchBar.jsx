@@ -3,7 +3,6 @@ import { useEffect, useState } from "react";
 import {
   Autocomplete,
   Box,
-  Button,
   InputAdornment,
   TextField,
   Typography,
@@ -39,23 +38,9 @@ const SearchBar = ({ onSearch }) => {
     fetchSuggestions();
   }, [city]);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-
-    if (!city.trim()) {
-      return;
-    }
-
-    onSearch(city);
-  };
-
   return (
     <Box
-      component="form"
-      onSubmit={handleSubmit}
       sx={{
-        display: "flex",
-        gap: 2,
         width: "100%",
       }}
     >
@@ -121,13 +106,6 @@ const SearchBar = ({ onSearch }) => {
           />
         )}
       />
-
-      <Button
-        type="submit"
-        variant="contained"
-      >
-        Search
-      </Button>
     </Box>
   );
 };

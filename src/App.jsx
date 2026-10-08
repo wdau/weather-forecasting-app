@@ -1,6 +1,7 @@
 import { useState } from "react";
 import {
   Box,
+  Grid,
   IconButton,
   ToggleButton,
   ToggleButtonGroup,
@@ -26,7 +27,7 @@ const App = () => {
   return (
     <ThemeProvider theme={darkMode ? darkTheme : lightTheme}>
       <Box sx={{
-        maxWidth: 1000,
+        maxWidth: 1200,
         mx: "auto",
         p: 4,
         minHeight: "100vh",
@@ -89,15 +90,36 @@ const App = () => {
 
         {error && <ErrorMessage message={error} />}
 
-        {weather && (
-          <>
-            <CurrentWeather key={weather.id} weather={weather} location={location} unit={unit} />
-          </>
+        {weather && forecast && (
+          <Grid container spacing={2} sx={{ mt: 4 }}>
+
+            <Grid size={{ xs: 12, md: 4 }}>
+              <CurrentWeather
+                key={weather.id}
+                weather={weather}
+                location={location}
+                unit={unit}
+              />
+            </Grid>
+
+            <Grid size={{ xs: 12, md: 8 }}>
+              <ThreeHourForecast
+                key={`three-hour-${forecast.city.id}`}
+                forecast={forecast}
+                unit={unit}
+              />
+            </Grid>
+
+          </Grid>
         )}
 
-        {forecast && <ThreeHourForecast key={`three-hour-${forecast.city.id}`} forecast={forecast} unit={unit} />}
-
-        {forecast && <FiveDayForecast key={`five-day-${forecast.city.id}`} forecast={forecast} unit={unit} />}
+        {forecast && (
+          <FiveDayForecast
+            key={`five-day-${forecast.city.id}`}
+            forecast={forecast}
+            unit={unit}
+          />
+        )}
       </Box>
     </ThemeProvider>
   );

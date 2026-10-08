@@ -11,7 +11,7 @@ const CurrentWeather = ({ weather, location, unit }) => {
   return (
     <Card
       sx={{
-        mt: 4,
+        height: "100%",
         animation: "fadeIn 0.5s ease-out",
         "@keyframes fadeIn": {
           from: {
@@ -28,53 +28,78 @@ const CurrentWeather = ({ weather, location, unit }) => {
       <CardContent>
 
         {/* City */}
-        <Typography variant="h4">
-          {location.name}
-        </Typography>
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "flex-start",
+          }}
+        >
+          <Box>
+            <Typography variant="h4">
+              {location.name}
+            </Typography>
 
-        <Typography variant="body2">
-          {location.state ? `${location.state}, ` : ""}
-          {location.country}
-        </Typography>
+            <Typography variant="body3">
+              {location.state ? `${location.state}, ` : ""}
+              {location.country}
+            </Typography>
+          </Box>
 
-        {/* Current Temperature */}
-        <Typography variant="h2" sx={{ mt: 2 }}>
-          {Math.round(
-            convertTemperature(weather.main.temp, unit)
-          )}°{unit}
-        </Typography>
+          <Typography
+            variant="body1"
+            color="text.secondary"
+          >
+            {new Date(
+              (weather.dt + weather.timezone) * 1000
+            ).toLocaleTimeString("en-US", {
+              hour: "numeric",
+              minute: "2-digit",
+              timeZone: "UTC",
+            })}
+          </Typography>
+        </Box>
 
-        {/* Weather Icon and Description */}
-        <Box sx={{ mt: 1, ml: 1 }}>
-          <img
-            src={`https://openweathermap.org/img/wn/${weather.weather[0].icon}@2x.png`}
-            alt={weather.weather[0].description}
-            width="60"
-            height="60"
-          />
-
-          <Typography variant="body1">
-            {weather.weather[0].description}
+        {/* Current Temperature, Icon, Description, High / Low */}
+        <Box sx={{ textAlign: "center", mt: 2 }}>
+          <Typography variant="h2">
+            {Math.round(
+              convertTemperature(weather.main.temp, unit)
+            )}°{unit}
           </Typography>
 
-          {/* High / Low */}
-          <Box
-            sx={{
-              display: "flex",
-              gap: 2,
-            }}
-          >
-            <Typography variant="body2">
-              H: {Math.round(
-                convertTemperature(weather.main.temp_max, unit)
-              )}°{unit}
+          <Box sx={{ mt: 1 }}>
+            <img
+              src={`https://openweathermap.org/img/wn/${weather.weather[0].icon}@2x.png`}
+              alt={weather.weather[0].description}
+              width="60"
+              height="60"
+            />
+
+            <Typography variant="body1">
+              {weather.weather[0].description}
             </Typography>
 
-            <Typography variant="body2">
-              L: {Math.round(
-                convertTemperature(weather.main.temp_min, unit)
-              )}°{unit}
-            </Typography>
+            {/* High / Low */}
+            <Box
+              sx={{
+                display: "flex",
+                justifyContent: "center",
+                gap: 2,
+              }}
+            >
+              <Typography variant="body2">
+                H: {Math.round(
+                  convertTemperature(weather.main.temp_max, unit)
+                )}°{unit}
+              </Typography>
+
+              <Typography variant="body2">
+                L: {Math.round(
+                  convertTemperature(weather.main.temp_min, unit)
+                )}°{unit}
+              </Typography>
+            </Box>
           </Box>
         </Box>
 
