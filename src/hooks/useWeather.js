@@ -2,14 +2,14 @@ import { useEffect, useState } from "react";
 import { getWeather, getForecast } from "../api/weather";
 
 const useWeather = () => {
-  const [city, setCity] = useState("");
+  const [location, setLocation] = useState("");
   const [weather, setWeather] = useState(null);
   const [forecast, setForecast] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
   useEffect(() => {
-    if (!city) {
+    if (!location) {
       return;
     }
 
@@ -18,7 +18,10 @@ const useWeather = () => {
       setError("");
 
       try {
-        const data = await getWeather(city);
+        const data = await getWeather(
+          location.lat,
+          location.lon
+        );
 
         if (data.cod !== 200) {
           setError(data.message || "Unable to find weather for this city.");
@@ -27,7 +30,10 @@ const useWeather = () => {
           return;
         }
 
-        const forecastData = await getForecast(city);
+        const forecastData = await getForecast(
+          location.lat,
+          location.lon
+        );
 
         if (forecastData.cod !== "200") {
           setError("Unable to fetch the weather forecast.");
@@ -49,13 +55,14 @@ const useWeather = () => {
     };
 
     fetchWeather();
-  }, [city]);
+  }, [location]);
 
-  const searchWeather = (searchedCity) => {
-    setCity(searchedCity);
+  const searchWeather = (searchedLocation) => {
+    setLocation(searchedLocation);
   };
 
   return {
+    location,
     weather,
     forecast,
     loading,

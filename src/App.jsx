@@ -21,7 +21,7 @@ const App = () => {
   const [unit, setUnit] = useState("C");
   const [darkMode, setDarkMode] = useState(false);
 
-  const { weather, forecast, loading, error, searchWeather } = useWeather();
+  const { location, weather, forecast, loading, error, searchWeather } = useWeather();
 
   return (
     <ThemeProvider theme={darkMode ? darkTheme : lightTheme}>
@@ -91,7 +91,7 @@ const App = () => {
 
         {weather && (
           <>
-            <CurrentWeather key={weather.id} weather={weather} unit={unit} />
+            <CurrentWeather key={weather.id} weather={weather} location={location} unit={unit} />
           </>
         )}
 

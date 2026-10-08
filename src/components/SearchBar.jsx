@@ -78,7 +78,6 @@ const SearchBar = ({ onSearch }) => {
             </Typography>
           </Box>
         )}
-        freeSolo
         options={suggestions}
         getOptionLabel={(option) =>
           typeof option === "string"
@@ -92,7 +91,7 @@ const SearchBar = ({ onSearch }) => {
         onChange={(event, newValue) => {
           if (newValue && typeof newValue !== "string") {
             setCity(newValue.name);
-            onSearch(newValue.name);
+            onSearch(newValue);
           }
         }}
         fullWidth

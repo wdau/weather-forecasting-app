@@ -7,7 +7,7 @@ import {
 } from "@mui/material";
 import { convertTemperature } from "../utils/temperature";
 
-const CurrentWeather = ({ weather, unit }) => {
+const CurrentWeather = ({ weather, location, unit }) => {
   return (
     <Card
       sx={{
@@ -29,7 +29,12 @@ const CurrentWeather = ({ weather, unit }) => {
 
         {/* City */}
         <Typography variant="h4">
-          {weather.name}
+          {location.name}
+        </Typography>
+
+        <Typography variant="body2">
+          {location.state ? `${location.state}, ` : ""}
+          {location.country}
         </Typography>
 
         {/* Current Temperature */}

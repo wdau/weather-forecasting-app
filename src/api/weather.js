@@ -1,8 +1,8 @@
-export const getWeather = async (city) => {
+export const getWeather = async (lat, lon) => {
   const apiKey = import.meta.env.VITE_WEATHER_API_KEY;
 
   const response = await fetch(
-    `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`
+    `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric`
   );
 
   const data = await response.json();
@@ -10,11 +10,11 @@ export const getWeather = async (city) => {
   return data;
 };
 
-export const getForecast = async (city) => {
+export const getForecast = async (lat, lon) => {
   const apiKey = import.meta.env.VITE_WEATHER_API_KEY;
 
   const response = await fetch(
-    `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${apiKey}&units=metric`
+    `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric`
   );
 
   const data = await response.json();
