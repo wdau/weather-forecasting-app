@@ -16,7 +16,6 @@ const SearchBar = ({ onSearch }) => {
 
   useEffect(() => {
     if (city.trim().length < 2) {
-      setSuggestions([]);
       return;
     }
 
@@ -87,6 +86,10 @@ const SearchBar = ({ onSearch }) => {
         }
         onInputChange={(event, newValue) => {
           setCity(newValue);
+
+          if (newValue.trim().length < 2) {
+            setSuggestions([]);
+          }
         }}
         onChange={(event, newValue) => {
           if (newValue && typeof newValue !== "string") {

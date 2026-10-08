@@ -45,7 +45,7 @@ const useWeather = () => {
         setWeather(data);
         setForecast(forecastData);
 
-      } catch (err) {
+      } catch {
         setError("Unable to fetch weather data.");
         setWeather(null);
         setForecast(null);
