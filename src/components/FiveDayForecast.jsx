@@ -38,7 +38,7 @@ const FiveDayForecast = ({ forecast, unit }) => {
   return (
     <Card
       sx={{
-        mt: 4,
+        mt: 2,
         p: 2,
         animation: "fadeIn 0.5s ease-out",
         "@keyframes fadeIn": {

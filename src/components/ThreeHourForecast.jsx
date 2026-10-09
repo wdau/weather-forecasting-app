@@ -110,7 +110,7 @@ const Forecast = ({ forecast, unit }) => {
                   p: 1,
                   border: "1px solid",
                   borderColor: "divider",
-                  borderRadius: 2,
+                  borderRadius: 1,
                   backgroundColor: "background.paper",
                 }}
               >

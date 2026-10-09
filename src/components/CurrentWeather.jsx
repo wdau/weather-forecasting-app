@@ -2,7 +2,6 @@ import {
   Box,
   Card,
   CardContent,
-  Grid,
   Typography,
 } from "@mui/material";
 import { convertTemperature } from "../utils/temperature";
@@ -104,53 +103,65 @@ const CurrentWeather = ({ weather, location, unit }) => {
         </Box>
 
         {/* Weather Details */}
-        <Grid container spacing={2} sx={{ mt: 2 }}>
+        <Box
+          sx={{
+            mt: 3,
+            display: "grid",
+            gridTemplateColumns: "repeat(3, minmax(0, 1fr))",
+            gap: 1,
+          }}
+        >
+          {[
+            {
+              label: "Feels Like",
+              value: `${Math.round(
+                convertTemperature(weather.main.feels_like, unit)
+              )}°${unit}`,
+            },
+            {
+              label: "Humidity",
+              value: `${weather.main.humidity}%`,
+            },
+            {
+              label: "Wind Speed",
+              value: `${weather.wind.speed} m/s`,
+            },
+          ].map((item) => (
+            <Box
+              key={item.label}
+              sx={{
+                minWidth: 0,
+                minHeight: 80,
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                justifyContent: "center",
+                textAlign: "center",
+                p: 1,
+                border: "1px solid",
+                borderColor: "divider",
+                borderRadius: 0.5,
+                backgroundColor: "background.paper",
+                boxSizing: "border-box",
+              }}
+            >
+              <Typography variant="body2" sx={{ overflowWrap: "anywhere" }}>
+                {item.label}
+              </Typography>
 
-          <Grid xs={12} sm={4}>
-            <Card variant="outlined">
-              <CardContent sx={{ textAlign: "center" }}>
-                <Typography variant="body2">
-                  Feels Like
-                </Typography>
-
-                <Typography variant="h6">
-                  {Math.round(
-                    convertTemperature(weather.main.feels_like, unit)
-                  )}°{unit}
-                </Typography>
-              </CardContent>
-            </Card>
-          </Grid>
-
-          <Grid xs={12} sm={4}>
-            <Card variant="outlined">
-              <CardContent sx={{ textAlign: "center" }}>
-                <Typography variant="body2">
-                  Humidity
-                </Typography>
-
-                <Typography variant="h6">
-                  {weather.main.humidity}%
-                </Typography>
-              </CardContent>
-            </Card>
-          </Grid>
-
-          <Grid xs={12} sm={4}>
-            <Card variant="outlined">
-              <CardContent sx={{ textAlign: "center" }}>
-                <Typography variant="body2">
-                  Wind Speed
-                </Typography>
-
-                <Typography variant="h6">
-                  {weather.wind.speed} m/s
-                </Typography>
-              </CardContent>
-            </Card>
-          </Grid>
-
-        </Grid>
+              <Typography
+                variant="body2"
+                sx={{
+                  fontSize: { xs: "0.9rem", sm: "1rem" },
+                  fontWeight: 600,
+                  overflowWrap: "anywhere",
+                }}
+              >
+                {item.value}
+              </Typography>
+            </Box>
+          ))}
+        </Box>
       </CardContent>
     </Card>
   );
