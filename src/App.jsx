@@ -19,6 +19,7 @@ import Loading from "./components/Loading";
 import ErrorMessage from "./components/ErrorMessage";
 import ThreeHourForecast from "./components/ThreeHourForecast";
 import FiveDayForecast from "./components/FiveDayForecast";
+import WelcomePanel from "./components/WelcomePanel";
 import useWeather from "./hooks/useWeather";
 
 const App = () => {
@@ -123,6 +124,8 @@ const App = () => {
           {loading && <Loading />}
 
           {error && <ErrorMessage message={error} />}
+
+          {!weather && !loading && !error && <WelcomePanel />}
 
           {weather && forecast && (
             <Grid container spacing={2} sx={{ mt: 4 }}>
