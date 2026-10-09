@@ -10,7 +10,7 @@ A responsive weather dashboard built with **React**, **Vite**, **Material UI**, 
 - **Three-hour-step forecast:** Displays forecast cards and a temperature line chart based on the same forecast data. The chart scrolls horizontally with the forecast cards.
 - **Five-day forecast:** Summarizes upcoming conditions by day.
 - **Celsius and Fahrenheit:** Switch temperature units in the interface.
-- **Light and dark themes:** Toggle between themed views.
+- **Theme support:** Automatically follows the system's light or dark preference on first visit and remembers the user's selected theme across sessions.
 - **Responsive layout:** The current-weather panel and three-hour forecast sit side by side on wider screens and stack on smaller screens.
 - **Loading and error feedback:** Provides feedback while weather data is loading and when a request fails.
 - **Subtle animations:** Weather result panels fade in when a new location is selected.
@@ -110,7 +110,8 @@ src/
 │   ├── FiveDayForecast.jsx     # Daily forecast summary
 │   ├── Loading.jsx             # Loading feedback
 │   ├── SearchBar.jsx           # Location autocomplete and selection
-│   └── ThreeHourForecast.jsx   # Forecast cards and temperature line chart
+│   ├── ThreeHourForecast.jsx   # Forecast cards and temperature line chart
+│   └── WelcomePanel.jsx        # Welcome screen and weather app feature highlights
 ├── hooks/
 │   └── useWeather.js           # Weather state, requests, loading, and error handling
 ├── utils/

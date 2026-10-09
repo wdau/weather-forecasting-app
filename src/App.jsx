@@ -24,7 +24,14 @@ import useWeather from "./hooks/useWeather";
 
 const App = () => {
   const [unit, setUnit] = useState("C");
-  const [darkMode, setDarkMode] = useState(false);
+  const [darkMode, setDarkMode] = useState(() => {
+    const savedTheme = localStorage.getItem("weather-theme");
+
+    if (savedTheme === "dark") return true;
+    if (savedTheme === "light") return false;
+
+    return window.matchMedia("(prefers-color-scheme: dark)").matches;
+  });
 
   const { location, weather, forecast, loading, error, searchWeather } = useWeather();
 
@@ -46,6 +53,16 @@ const App = () => {
       favicon.type = "image/png";
     }
   }, [location, weather]);
+
+  const handleThemeToggle = () => {
+    const nextMode = !darkMode;
+
+    setDarkMode(nextMode);
+    localStorage.setItem(
+      "weather-theme",
+      nextMode ? "dark" : "light"
+    );
+  };
 
   return (
     <ThemeProvider theme={darkMode ? darkTheme : lightTheme}>
@@ -113,7 +130,7 @@ const App = () => {
               title={darkMode ? "Switch to light mode" : "Switch to dark mode"}
             >
               <IconButton
-                onClick={() => setDarkMode(!darkMode)}
+                onClick={handleThemeToggle}
                 aria-label="Toggle dark mode"
               >
                 {darkMode ? <LightModeIcon /> : <DarkModeIcon />}
