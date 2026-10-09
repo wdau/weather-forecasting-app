@@ -3,10 +3,11 @@ import { Box, CircularProgress, Typography } from "@mui/material";
 const Loading = () => {
   return (
     <Box
-      display="flex"
-      flexDirection="column"
-      alignItems="center"
-      mt={4}
+      sx={{
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+      }}
     >
       <CircularProgress />
 

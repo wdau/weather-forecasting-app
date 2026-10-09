@@ -106,9 +106,9 @@ const CurrentWeather = ({ weather, location, unit }) => {
         {/* Weather Details */}
         <Grid container spacing={2} sx={{ mt: 2 }}>
 
-          <Grid item xs={12} sm={4}>
+          <Grid xs={12} sm={4}>
             <Card variant="outlined">
-              <CardContent>
+              <CardContent sx={{ textAlign: "center" }}>
                 <Typography variant="body2">
                   Feels Like
                 </Typography>
@@ -122,9 +122,9 @@ const CurrentWeather = ({ weather, location, unit }) => {
             </Card>
           </Grid>
 
-          <Grid item xs={12} sm={4}>
+          <Grid xs={12} sm={4}>
             <Card variant="outlined">
-              <CardContent>
+              <CardContent sx={{ textAlign: "center" }}>
                 <Typography variant="body2">
                   Humidity
                 </Typography>
@@ -136,9 +136,9 @@ const CurrentWeather = ({ weather, location, unit }) => {
             </Card>
           </Grid>
 
-          <Grid item xs={12} sm={4}>
+          <Grid xs={12} sm={4}>
             <Card variant="outlined">
-              <CardContent>
+              <CardContent sx={{ textAlign: "center" }}>
                 <Typography variant="body2">
                   Wind Speed
                 </Typography>

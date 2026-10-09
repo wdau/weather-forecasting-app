@@ -45,23 +45,27 @@ const SearchBar = ({ onSearch }) => {
       }}
     >
       <Autocomplete
-        renderOption={(props, option) => (
-          <Box component="li" {...props}>
-            <img
-              src={`https://flagcdn.com/24x18/${option.country.toLowerCase()}.png`}
-              alt={option.country}
-              width="24"
-              height="18"
-              style={{ marginRight: "8px" }}
-            />
+        renderOption={(props, option) => {
+          const { key, ...optionProps } = props;
 
-            <Typography>
-              {option.name}
-              {option.state ? `, ${option.state}` : ""}
-              {`, ${option.country}`}
-            </Typography>
-          </Box>
-        )}
+          return (
+            <Box component="li" key={key} {...optionProps}>
+              <img
+                src={`https://flagcdn.com/24x18/${option.country.toLowerCase()}.png`}
+                alt={option.country}
+                width="24"
+                height="18"
+                style={{ marginRight: "8px" }}
+              />
+
+              <Typography>
+                {option.name}
+                {option.state ? `, ${option.state}` : ""}
+                {`, ${option.country}`}
+              </Typography>
+            </Box>
+          );
+        }}
         options={suggestions}
         getOptionLabel={(option) =>
           typeof option === "string"
