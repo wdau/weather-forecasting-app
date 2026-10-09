@@ -99,7 +99,7 @@ const SearchBar = ({ onSearch }) => {
                 startAdornment: (
                   <>
                     <InputAdornment position="start">
-                      <SearchIcon />
+                      <SearchIcon sx={{ color: "primary.main" }} />
                     </InputAdornment>
 
                     {params.slotProps.input.startAdornment}
