@@ -184,6 +184,44 @@ const App = () => {
               unit={unit}
             />
           )}
+
+          {/* Footer and weather data attribution */}
+          <Box
+            component="footer"
+            sx={{
+              mt: 5,
+              pt: 2,
+              pb: 1,
+              borderTop: "1px solid",
+              borderColor: "divider",
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              gap: 1,
+              textAlign: "center",
+            }}
+          >
+            <Typography variant="body2" color="primary">
+              © {new Date().getFullYear()} Weather Forecast App
+            </Typography>
+
+            <Typography variant="body2" color="primary">
+              Weather data provided by{" "}
+              <Box
+                component="a"
+                href="https://openweathermap.org/"
+                target="_blank"
+                rel="noopener noreferrer"
+                sx={{
+                  color: "secondary.main",
+                  textDecoration: "none",
+                  fontWeight: 600,
+                }}
+              >
+                OpenWeather
+              </Box>
+            </Typography>
+          </Box>
         </Box>
       </Box>
     </ThemeProvider>
