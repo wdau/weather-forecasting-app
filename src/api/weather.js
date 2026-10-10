@@ -33,5 +33,9 @@ export const getCitySuggestions = async (city) => {
 
   const data = await response.json();
 
+  if (!response.ok || !Array.isArray(data)) {
+    throw new Error("Unable to fetch city suggestions.");
+  }
+
   return data;
 };

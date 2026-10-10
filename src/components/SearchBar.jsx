@@ -12,6 +12,7 @@ import { getCitySuggestions } from "../api/weather";
 const SearchBar = ({ onSearch }) => {
   const [city, setCity] = useState("");
   const [suggestions, setSuggestions] = useState([]);
+  const [searchError, setSearchError] = useState("");
 
   useEffect(() => {
     if (city.trim().length < 2) {
@@ -19,20 +20,29 @@ const SearchBar = ({ onSearch }) => {
     }
 
     const fetchSuggestions = async () => {
-      const data = await getCitySuggestions(city);
+      try {
+        const data = await getCitySuggestions(city);
 
-      const uniqueSuggestions = data.filter(
-        (item, index, array) =>
-          index ===
-          array.findIndex(
-            (other) =>
-              other.name === item.name &&
-              other.state === item.state &&
-              other.country === item.country
-          )
-      );
+        // Remove duplicate locations returned by the geocoding API.
+        const uniqueSuggestions = data.filter(
+          (item, index, array) =>
+            index ===
+            array.findIndex(
+              (other) =>
+                other.name === item.name &&
+                other.state === item.state &&
+                other.country === item.country
+            )
+        );
 
-      setSuggestions(uniqueSuggestions);
+        setSuggestions(uniqueSuggestions);
+        setSearchError("");
+      } catch {
+        setSuggestions([]);
+        setSearchError(
+          "Unable to load city suggestions. Please try again."
+        );
+      }
     };
 
     fetchSuggestions();
@@ -67,6 +77,15 @@ const SearchBar = ({ onSearch }) => {
           );
         }}
         options={suggestions}
+        noOptionsText={
+          searchError ? (
+            <Typography color="error" variant="body2">
+              {searchError}
+            </Typography>
+          ) : (
+            "No options"
+          )
+        }
         getOptionLabel={(option) =>
           typeof option === "string"
             ? option
@@ -75,6 +94,7 @@ const SearchBar = ({ onSearch }) => {
         }
         onInputChange={(event, newValue) => {
           setCity(newValue);
+          setSearchError("");
 
           if (newValue.trim().length < 2) {
             setSuggestions([]);
@@ -83,6 +103,7 @@ const SearchBar = ({ onSearch }) => {
         onChange={(event, newValue) => {
           if (newValue && typeof newValue !== "string") {
             setCity(newValue.name);
+            // Pass the selected location to fetch its weather.
             onSearch(newValue);
           }
         }}
