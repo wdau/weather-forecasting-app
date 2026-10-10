@@ -2,6 +2,10 @@
 
 A responsive weather dashboard built with **React**, **Vite**, **Material UI**, **Recharts**, and the **OpenWeather API**. It lets users select a location from geocoding suggestions and view current conditions, a three-hour-step forecast chart, and a five-day forecast.
 
+## Live Demo
+
+[Open the Weather Forecast App](https://weather-forecasting-app-kp0a.onrender.com/)
+
 ## Features
 
 - **Location search:** Type a city name and choose a matching suggestion. Suggestions include a country flag and, when available, a state or region.
@@ -58,45 +62,21 @@ npm run dev
 
 Vite prints a local URL in the terminal (typically `http://localhost:5173`). Open it in a browser.
 
-## Available scripts
-
-```bash
-npm run dev      # Start the development server
-npm run lint     # Run ESLint
-npm run build    # Create a production build in dist/
-npm run preview  # Preview the production build locally
-```
-
 ## Deploy to Render
 
 This is a Vite front-end app, so deploy it as a **Render Static Site**.
 
-1. Push the project to a GitHub repository.
-2. In the [Render Dashboard](https://dashboard.render.com/), select **New → Static Site** and connect the repository.
-3. Set the build command to:
+1. Go to [https://dashboard.render.com](https://dashboard.render.com) and click **"New" → "Static Site"**.
+2. Connect your GitHub account and select the repository containing your Vite project.
+3. Configure your static site with the following settings:
 
-   ```bash
-   npm ci && npm run build
-   ```
+   - **Name**: (Your app name)
+   - **Branch**: `main` (or whatever your default branch is)
+   - **Build Command**: `npm run build`
+   - **Publish Directory**: `dist`
 
-   If the repository does not include `package-lock.json`, use `npm install && npm run build` instead.
+4. Click **"Create Static Site"**. Render will start building and deploying your app.
 
-4. Set the publish directory to:
-
-   ```text
-   dist
-   ```
-
-5. In the Render service's **Environment** settings, add:
-
-   | Key | Value |
-   | --- | --- |
-   | `VITE_WEATHER_API_KEY` | Your OpenWeather API key |
-
-6. Save the environment variable and trigger a new build/deploy. Vite reads `VITE_` variables at build time, so changing the variable requires a rebuild.
-7. Open the deployed `onrender.com` URL and test search, both unit options, theme switching, and the forecasts.
-
-For the latest service setup details, see the [Render Static Sites documentation](https://render.com/docs/static-sites).
 
 ## Project structure
 
@@ -125,15 +105,4 @@ src/
 - A location must be selected from the suggestions before its coordinates are used to fetch weather. The app intentionally uses the selected suggestion's `lat` and `lon` rather than relying on a city-name lookup for weather data.
 - OpenWeather's geocoding suggestions are not a full prefix-autocomplete service. Some partial names may return no suggestions, and the API can return duplicate or very similar results. The app removes exact duplicates based on city name, region/state, and country, but similar results can remain.
 - Country flags are loaded from FlagCDN, so displaying them requires an internet connection to that image host.
-- The current client-side implementation uses a `VITE_` environment variable. Vite embeds client-side environment variables into the built assets, which means the API key can be inspected by users in the browser. Do not treat this variable as a secure secret. For a production app where the key must remain private, route API requests through a backend/proxy and apply any available API-key restrictions.
-
-## Final checks
-
-Before deploying, run:
-
-```bash
-npm run lint
-npm run build
-```
-
-Then test the production build with `npm run preview`. Confirm that city selection uses the intended location, temperature conversion works, both themes render correctly, and the forecast chart/cards and five-day forecast display at desktop and phone widths.
+- The current client-side implementation uses a `VITE_` environment variable. Vite embeds client-side environment variables into the built assets, which means the API key can be inspected by users in the browser.
