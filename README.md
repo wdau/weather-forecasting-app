@@ -40,7 +40,7 @@ npm install
 
 ### 2. Configure the API key
 
-Create a `.env` file in the project root (the same folder as `package.json`) and add:
+Create a `.env` file in the project root and add:
 
 ```env
 VITE_WEATHER_API_KEY=your_openweather_api_key

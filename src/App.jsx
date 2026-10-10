@@ -2,13 +2,13 @@ import { useEffect, useState } from "react";
 import {
   Box,
   Grid,
+  CssBaseline,
   IconButton,
   ToggleButton,
   ToggleButtonGroup,
   Tooltip,
   Typography,
 } from "@mui/material";
-import CssBaseline from "@mui/material/CssBaseline";
 import { ThemeProvider } from "@mui/material/styles";
 import DarkModeIcon from "@mui/icons-material/DarkMode";
 import LightModeIcon from "@mui/icons-material/LightMode";
@@ -24,6 +24,8 @@ import useWeather from "./hooks/useWeather";
 
 const App = () => {
   const [unit, setUnit] = useState("C");
+
+  // Use the saved theme, or follow the system preference on first visit
   const [darkMode, setDarkMode] = useState(() => {
     const savedTheme = localStorage.getItem("weather-theme");
 
@@ -35,25 +37,29 @@ const App = () => {
 
   const { location, weather, forecast, loading, error, searchWeather } = useWeather();
 
+  // Update the browser tab title and favicon based on the current weather and location
   useEffect(() => {
     document.title = location
       ? `${location.name} Weather`
       : "Weather Forecast";
 
+    const favicon = document.querySelector("link[rel~='icon']");
+
+    if (!favicon) return;
+
     const iconCode = weather?.weather?.[0]?.icon;
 
     if (!iconCode) {
+      favicon.href = "/favicon.svg";
+      favicon.type = "image/svg+xml";
       return;
     }
 
-    const favicon = document.querySelector("link[rel~='icon']");
-
-    if (favicon) {
-      favicon.href = `https://openweathermap.org/img/wn/${iconCode}.png`;
-      favicon.type = "image/png";
-    }
+    favicon.href = `https://openweathermap.org/img/wn/${iconCode}.png`;
+    favicon.type = "image/png";
   }, [location, weather]);
 
+  // Save the user's theme choice
   const handleThemeToggle = () => {
     const nextMode = !darkMode;
 
@@ -96,6 +102,7 @@ const App = () => {
 
           <SearchBar onSearch={searchWeather} />
 
+          {/* Temperature unit and theme controls */}
           <Box
             sx={{
               mt: 2,
@@ -142,8 +149,10 @@ const App = () => {
 
           {error && <ErrorMessage message={error} />}
 
+          {/* Welcome panel */}
           {!weather && !loading && !error && <WelcomePanel />}
 
+          {/* Current conditions and three-hour forecast */}
           {weather && forecast && (
             <Grid container spacing={2} sx={{ mt: 4 }}>
 
@@ -167,6 +176,7 @@ const App = () => {
             </Grid>
           )}
 
+          {/* Five-day forecast */}
           {forecast && (
             <FiveDayForecast
               key={`five-day-${forecast.city.id}`}

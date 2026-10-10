@@ -19,6 +19,7 @@ const FiveDayForecast = ({ forecast, unit }) => {
     dailyForecast[date].push(item);
   });
 
+  // Calculate each day's temperature range and select its weather icon
   const dailyData = Object.entries(dailyForecast).map(
     ([date, items]) => {
       const temperatures = items.map(
@@ -33,7 +34,7 @@ const FiveDayForecast = ({ forecast, unit }) => {
         description: items[items.length - 1].weather[0].description,
       };
     }
-  );
+  ).slice(0, 5);;
 
   return (
     <Card

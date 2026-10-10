@@ -9,7 +9,8 @@ import {
 } from "recharts";
 import { convertTemperature } from "../utils/temperature";
 
-const Forecast = ({ forecast, unit }) => {
+const ThreeHourForecast = ({ forecast, unit }) => {
+  // Prepare forecast times and temperatures for the chart
   const chartData = forecast.list.map((item) => ({
     time: new Date(
       (item.dt + forecast.city.timezone) * 1000
@@ -22,7 +23,7 @@ const Forecast = ({ forecast, unit }) => {
     ),
   }));
 
-  // Match the width of the forecast cards
+  // Match the chart width to the forecast cards and their gaps
   const contentWidth = forecast.list.length * 96 - 16;
 
   return (
@@ -145,4 +146,4 @@ const Forecast = ({ forecast, unit }) => {
   );
 };
 
-export default Forecast;
+export default ThreeHourForecast;

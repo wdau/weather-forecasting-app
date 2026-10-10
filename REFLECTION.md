@@ -21,25 +21,22 @@ Building the temperature line chart introduced me to visualizing data with Recha
 - **Responsive layout:** I tested the layout at phone widths and adjusted the page structure so current conditions and the three-hour forecast can sit side by side on wider screens and stack on smaller screens.
 - **Forecast visualization:** I added a temperature line chart above the horizontally scrollable three-hour forecast cards. Keeping the graph and cards on the same data makes the relationship between the line points and forecast times clearer.
 - **React and MUI behavior:** I addressed lint feedback and React console warnings, including issues related to React keys and different MUI Grid APIs. This reinforced the importance of checking both the browser console and static-analysis output rather than relying only on whether the interface appears to work.
-- **Build validation:** I ran ESLint and the Vite production build. The build completed successfully, although Vite reported that the generated JavaScript chunk was larger than its recommended warning threshold.
+- **Build validation:** I ran ESLint and the Vite production build. The build completed successfully.
 
 ## Testing and validation
 
 During development, I manually checked city selection, including locations with identical names in different regions, and verified that the selected coordinates were used for weather requests. I also tested the temperature-unit toggle, theme toggle, current conditions, forecasts, and responsive layout. I ran `npm run lint` and `npm run build`; both completed successfully after the lint issues were corrected. I also checked the application in the browser and reviewed the console for errors and warnings.
 
-Before submission, I should make one final pass through the deployed version as well as the local production preview, because environment variables and hosting configuration can behave differently after deployment.
+## Future Improvements
 
-## What I would improve next
+1. **Improve city search:** Make it easier to find cities by typing part of their name and choosing the correct location.
+2. **Improve search performance:** Reduce unnecessary requests while typing and make sure the latest search results are displayed.
+3. **Protect the API key:** Consider moving API requests to a backend if the API key needs to be kept private.
+4. **Improve loading speed:** Look for ways to reduce the app's bundle size and make it load faster.
+5. **Add tests:** Test temperature conversions, city searches, and error handling to make sure they work correctly.
+6. **Improve accessibility:** Make sure the app is easy to use with a keyboard and that text, icons, and colours are easy to see in both themes.
 
-If I had more time, I would consider:
-
-1. Replacing or supplementing the current geocoder with a service designed for true partial-name autocomplete and clearer disambiguation.
-2. Debouncing location queries and cancelling outdated requests so that rapid typing does not produce unnecessary network requests or stale suggestions.
-3. Moving weather API requests behind a backend/proxy if the API key needs to remain private. A Vite `VITE_` variable is exposed in the client bundle and is not a secret-storage mechanism.
-4. Improving the chart bundle size with code-splitting or other build optimization, then measuring whether that improves real loading performance.
-5. Adding automated tests for temperature conversion, duplicate suggestion filtering, API error handling, and location selection.
-6. Improving accessibility by checking keyboard-only use, focus visibility, image alternative text, and color contrast in both themes.
 
 ## Conclusion
 
-This project helped me connect React components, hooks, external APIs, asynchronous data, responsive UI, and data visualization in one application. The most valuable lesson was to track the selected location as structured data, not just a text string. I also learned to validate changes with linting, a production build, and browser testing, and to prioritize functional correctness and clear user feedback over small cosmetic changes.
+This project helped me connect React components, hooks, external APIs, asynchronous data, responsive UI, and data visualization in one application. The most valuable lesson was to track the selected location as structured data, not just a text string. I also learned to validate changes with linting, a production build, and browser testing, and to prioritize functional correctness and clear user feedback over small changes.

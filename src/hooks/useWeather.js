@@ -8,6 +8,7 @@ const useWeather = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
+  //Fetch weather and forecast data for the selected location
   useEffect(() => {
     if (!location) {
       return;

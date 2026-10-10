@@ -34,6 +34,7 @@ const WelcomePanel = () => (
             boxSizing: "border-box",
         }}
     >
+        {/* Welcome message */}
         <Box
             sx={{
                 width: "100%",
@@ -65,6 +66,7 @@ const WelcomePanel = () => (
             </Typography>
         </Box>
 
+        {/* Feature highlights */}
         <Box
             sx={{
                 display: "grid",

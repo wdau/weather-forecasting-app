@@ -26,7 +26,7 @@ const CurrentWeather = ({ weather, location, unit }) => {
     >
       <CardContent>
 
-        {/* City */}
+        {/* City name, country, and local time */}
         <Box
           sx={{
             display: "flex",
@@ -39,7 +39,7 @@ const CurrentWeather = ({ weather, location, unit }) => {
               {location.name}
             </Typography>
 
-            <Typography variant="body3">
+            <Typography variant="body2">
               {location.state ? `${location.state}, ` : ""}
               {location.country}
             </Typography>
@@ -79,7 +79,6 @@ const CurrentWeather = ({ weather, location, unit }) => {
               {weather.weather[0].description}
             </Typography>
 
-            {/* High / Low */}
             <Box
               sx={{
                 display: "flex",
